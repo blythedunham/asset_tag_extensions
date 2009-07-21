@@ -1,0 +1,55 @@
+= AssetTagExtensions
+View methods to help defer the loading of javascript until the end of the page for high performance websites.
+By including them at the bottom of the page instead of the head of the document, the
+html content can load first and is not blocked by the loading of javascripts.
+More information is available at http://developer.yahoo.com/performance/rules.html
+
+== Install
+  script/plugin install git://github.com/blythedunham/javascript_tag_extensions
+
+== Examples
+
+ First add some javascript. These can be called from any view or helper.
+
+ +include_javascript_tag+ - takes an extra parameter <tt>:defer</tt> which defers the tag until the bottom of the page
+  include_javascript_tag 'myJsFile', :defer => true
+ +inline_javascript+ - like +javascript_tag+ but stores the content until the end of the page rather than render immediately.
+  inline_javascript "alert('INLINE JAVASCRIPT');"
+ <tt>inline_javascript :on_load => true </tt> With <tt>:on_load => true</tt> option add this script to those executed on the page load
+  <% inline_javascript :on_load => true %>
+    alert("JQUERY ONLOAD JAVASCRIPT");
+  <% end %>
+
+ At the bottom of the layout or page render the javascripts:
+  <%= render_deferred_javascript_tags %>
+
+ The following would appear at the bottom of the html page:
+
+  <!-- DEFFERRED Javascripts -->
+  <script src="/javascripts/myJsFile.js?1247867333" type="text/javascript"></script>
+
+  <!-- Inline Javascripts -->
+  <script type="text/javascript">
+  //<![CDATA[
+  alert('INLINE JAVASCRIPT');
+  //]]>
+  </script>
+
+  <!-- DEFFERRED On page load Javascripts -->
+  <script type="text/javascript">
+  //<![CDATA[
+   (function ($) {
+     $(function() {
+       alert("JQUERY ONLOAD JAVASCRIPT");
+     });
+   })(jQuery);
+
+  //]]>
+
+== Developers
+* Blythe Dunham http://snowgiraffe.com
+
+== Homepage
+* Project Site: http://github.com/blythedunham/asset_tag_extensions
+
+Copyright (c) 2009 [Blythe Dunham], released under the MIT license
