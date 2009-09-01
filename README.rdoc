@@ -5,7 +5,7 @@ html content can load first and is not blocked by the loading of javascripts.
 More information is available at http://developer.yahoo.com/performance/rules.html
 
 == Install
-  script/plugin install git://github.com/blythedunham/javascript_tag_extensions
+  script/plugin install git://github.com/blythedunham/asset_tag_extensions
 
 == Examples
 
